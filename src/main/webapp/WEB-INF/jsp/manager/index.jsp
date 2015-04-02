@@ -4,7 +4,7 @@
 <html class="panel-fit">
 <head>
     <meta charset="UTF-8">
-    <title>Basic Layout - jQuery EasyUI Demo</title>
+    <title>棒棒贝贝后台管理</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/base.css">

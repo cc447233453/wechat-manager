@@ -39,19 +39,19 @@
 					<li>
 						<p>&nbsp;&nbsp;获取途径:</p>
 						<p>
-							&nbsp;&nbsp;<input type="checkbox" name="listenWay">&nbsp;&nbsp;参加棒贝活动
+							&nbsp;&nbsp;<input type="checkbox" name="listenWay" value="参加棒贝活动">&nbsp;&nbsp;参加棒贝活动
 						</p>
 						<p>
-							&nbsp;&nbsp;<input type="checkbox" name="listenWay">&nbsp;&nbsp;微信
+							&nbsp;&nbsp;<input type="checkbox" name="listenWay" value="微信">&nbsp;&nbsp;微信
 						</p>
 						<p>
-							&nbsp;&nbsp;<input type="checkbox" name="listenWay">&nbsp;&nbsp;棒贝官网
+							&nbsp;&nbsp;<input type="checkbox" name="listenWay" value="棒贝官网">&nbsp;&nbsp;棒贝官网
 						</p>
 						<p>
-							&nbsp;&nbsp;<input type="checkbox" name="listenWay">&nbsp;&nbsp;团购
+							&nbsp;&nbsp;<input type="checkbox" name="listenWay" value="团购">&nbsp;&nbsp;团购
 						</p>
 						<p>
-							&nbsp;&nbsp;<input type="checkbox" name="listenWay">&nbsp;&nbsp;路过
+							&nbsp;&nbsp;<input type="checkbox" name="listenWay" value="路过">&nbsp;&nbsp;路过
 						</p>
 					</li>
 					<li>
