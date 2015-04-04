@@ -35,13 +35,11 @@
              </bean>
 		</property>
 	</bean>
-	
 	<mvc:resources mapping="/css/**" location="/css/" />
 	<mvc:resources mapping="/fonts/**" location="/fonts/" />
 	<mvc:resources mapping="/js/**" location="/js/" />
 	<mvc:resources mapping="/img/**" location="/img/" />
 	<mvc:resources mapping="/easyui/**" location="/easyui/" />
-
 	<bean 
 	    class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
