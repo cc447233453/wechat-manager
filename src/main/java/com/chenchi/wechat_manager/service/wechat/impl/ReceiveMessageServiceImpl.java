@@ -9,9 +9,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Service;
 
 import com.chenchi.wechat_manager.entity.InputMessage;
@@ -20,6 +17,7 @@ import com.chenchi.wechat_manager.enums.MsgType;
 import com.chenchi.wechat_manager.service.wechat.ReceiveMessageService;
 import com.chenchi.wechat_manager.util.SerializeXmlUtil;
 import com.thoughtworks.xstream.XStream;
+
 @Service
 public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 
@@ -54,6 +52,7 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 			return false;
 		}
 	}
+
 	/**
 	 * 接收消息
 	 * 
@@ -61,19 +60,14 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 	 * @return
 	 * @throws IOException
 	 */
-	public String receiveMessage(HttpServletRequest request) throws IOException {
-		ServletInputStream in = request.getInputStream();
+	public String receiveMessage(String document) throws IOException {
 		XStream xs = SerializeXmlUtil.createXstream();
 		xs.processAnnotations(InputMessage.class);
 		xs.processAnnotations(OutputMessage.class);
 		xs.alias("xml", InputMessage.class);
-		StringBuilder xmlMsg = new StringBuilder();
-		byte[] b = new byte[4096];
-		for (int n; (n = in.read(b)) != -1;) {
-			xmlMsg.append(new String(b, 0, n, "UTF-8"));
-		}
+
 		// 将xml内容转换为InputMessage对象
-		InputMessage inputMsg = (InputMessage) xs.fromXML(xmlMsg.toString());
+		InputMessage inputMsg = (InputMessage) xs.fromXML(document);
 		String servername = inputMsg.getToUserName();// 服务端
 		String custermname = inputMsg.getFromUserName();// 客户端
 		long createTime = inputMsg.getCreateTime();// 接收时间
@@ -88,8 +82,11 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 			str.append("<FromUserName><![CDATA[" + servername + "]]></FromUserName>");
 			str.append("<CreateTime>" + returnTime + "</CreateTime>");
 			str.append("<MsgType><![CDATA[" + msgType + "]]></MsgType>");
-			str.append("<Content><![CDATA[您的消息已收到，我们会尽快处理]]></Content>");
+			str.append("<Content><![CDATA[");
+			str.append("您的信息已经记录，请耐心等待！");
+			str.append("]]></Content>");
 			str.append("</xml>");
+
 			System.out.println(str.toString());
 			return str.toString();
 		}
