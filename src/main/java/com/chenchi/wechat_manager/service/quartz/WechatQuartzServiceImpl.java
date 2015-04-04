@@ -28,6 +28,7 @@ public class WechatQuartzServiceImpl {
 	private static final String APPID = "wxc52abcd8023eb713";
 	private static final String SECRET = "b59b6243c8a4aecb0f1c741b0308f12f";
 	private static final String WECHAT_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=" + GRANT_TYPE + "&appid=" + APPID + "&secret=" + SECRET;
+
 	public void getAcceessToken() throws InterruptedException, IOException {
 		HttpGet httpGet = new HttpGet(WECHAT_URL);
 		HttpClient httpClient = new DefaultHttpClient();
@@ -47,14 +48,5 @@ public class WechatQuartzServiceImpl {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		WechatQuartzServiceImpl w = new WechatQuartzServiceImpl();
-		try {
-			w.getAcceessToken();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
 }
