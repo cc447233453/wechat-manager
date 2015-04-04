@@ -15,6 +15,7 @@
 		<property name="locations"> 
              <list>
              	<value>classpath:/db.properties</value>
+             	<value>classpath:/redis.properties</value>
              </list>
          </property>  		
 	</bean>
@@ -59,6 +60,10 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
+	<bean
+		class="com.chenchi.wechat_manager.util.SpringContextUtils.SpringApplicactionContext" />
+	
 	<import resource="spring-mvc-db-mysql.xml"/>
 	<import resource="spring-quartz.xml"/>
+	<import resource="spring-jedis.xml"/>
 </beans>
