@@ -1,16 +1,25 @@
 package com.chenchi.wechat_manager.service.wechat.impl;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
+
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
+import com.chenchi.wechat_manager.entity.InputMessage;
+import com.chenchi.wechat_manager.entity.OutputMessage;
+import com.chenchi.wechat_manager.enums.MsgType;
 import com.chenchi.wechat_manager.service.wechat.ReceiveMessageService;
+import com.chenchi.wechat_manager.util.SerializeXmlUtil;
+import com.thoughtworks.xstream.XStream;
 @Service
 public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 
@@ -25,7 +34,6 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 		for (int i = 0; i < tmpArr.size(); i++) {
 			tmpStr += tmpArr.get(i);
 		}
-		System.out.println("tmpStr-----------" + tmpStr);
 		MessageDigest md = MessageDigest.getInstance("SHA-1");
 		md.update(tmpStr.getBytes("UTF-8"));
 		byte[] result = md.digest();
@@ -40,24 +48,51 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 			sb.append(Integer.toHexString(i));
 		}
 		tmpStr = sb.toString().toLowerCase();
-		System.out.println("tmpStr+++++++++++" + tmpStr);
-		System.out.println("signature************" + signature);
 		if (tmpStr.equals(signature)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	public static void main(String[] args) {
-		ReceiveMessageServiceImpl a = new ReceiveMessageServiceImpl();
-		try {
-			String aaa = new Date().getTime() + "";
-			a.checkSignature("", aaa, "12321");
-			System.out.println(aaa);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+	/**
+	 * 接收消息
+	 * 
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 */
+	public String receiveMessage(HttpServletRequest request) throws IOException {
+		ServletInputStream in = request.getInputStream();
+		XStream xs = SerializeXmlUtil.createXstream();
+		xs.processAnnotations(InputMessage.class);
+		xs.processAnnotations(OutputMessage.class);
+		xs.alias("xml", InputMessage.class);
+		StringBuilder xmlMsg = new StringBuilder();
+		byte[] b = new byte[4096];
+		for (int n; (n = in.read(b)) != -1;) {
+			xmlMsg.append(new String(b, 0, n, "UTF-8"));
 		}
+		// 将xml内容转换为InputMessage对象
+		InputMessage inputMsg = (InputMessage) xs.fromXML(xmlMsg.toString());
+		String servername = inputMsg.getToUserName();// 服务端
+		String custermname = inputMsg.getFromUserName();// 客户端
+		long createTime = inputMsg.getCreateTime();// 接收时间
+		Long returnTime = Calendar.getInstance().getTimeInMillis() / 1000;// 返回时间
+		String msgType = inputMsg.getMsgType();// // 取得消息类型
+		System.out.println("******msgType************" + msgType);
+		if (msgType.equals(MsgType.text.toString())) {
+			System.out.println("content:" + inputMsg.getContent());
+			StringBuffer str = new StringBuffer();
+			str.append("<xml>");
+			str.append("<ToUserName><![CDATA[" + custermname + "]]></ToUserName>");
+			str.append("<FromUserName><![CDATA[" + servername + "]]></FromUserName>");
+			str.append("<CreateTime>" + returnTime + "</CreateTime>");
+			str.append("<MsgType><![CDATA[" + msgType + "]]></MsgType>");
+			str.append("<Content><![CDATA[您的消息已收到，我们会尽快处理]]></Content>");
+			str.append("</xml>");
+			System.out.println(str.toString());
+			return str.toString();
+		}
+		return "";
 	}
 }
