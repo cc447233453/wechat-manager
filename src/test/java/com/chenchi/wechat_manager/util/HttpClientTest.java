@@ -1,4 +1,4 @@
-package com.chenchi.wechat_manager.test;
+package com.chenchi.wechat_manager.util;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-public class Test {
+public class HttpClientTest {
 	public static void main(String[] args) throws ClientProtocolException, IOException {
 		String str = "<xml><URL><![CDATA[http://chenchi.xyz/wm/wechat/api]]></URL><ToUserName><![CDATA[cc447133453@163.com]]></ToUserName><FromUserName><![CDATA[316849113]]></FromUserName><CreateTime>1999999</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[您好]]></Content><MsgId>111</MsgId></xml>";
 		CloseableHttpClient httpclient = HttpClients.createDefault();
