@@ -25,14 +25,14 @@ public class ArticleCategory extends AutoIDEntity {
 	 * 父Id
 	 */
 	private Long pid;
-	@Column(name = "category")
+	@Column(name = "CATEGORY")
 	public String getCategory() {
 		return category;
 	}
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	@Column(name = "pid")
+	@Column(name = "PID")
 	public Long getPid() {
 		return pid;
 	}
