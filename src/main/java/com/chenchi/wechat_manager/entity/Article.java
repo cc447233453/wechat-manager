@@ -27,7 +27,7 @@ public class Article extends AutoIDEntity {
 	String author; // 作者
 	Date createTime; // 创建时间
 	Date updateTime; // 修改时间
-
+	ArticleCategory articleCategory;// 文章分类
 	@Column(name = "TITLE", length = 100)
 	public String getTitle() {
 		return title;
@@ -89,6 +89,14 @@ public class Article extends AutoIDEntity {
 		builder.append(updateTime);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	public ArticleCategory getArticleCategory() {
+		return articleCategory;
+	}
+
+	public void setArticleCategory(ArticleCategory articleCategory) {
+		this.articleCategory = articleCategory;
 	}
 
 }

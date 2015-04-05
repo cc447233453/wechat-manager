@@ -41,10 +41,17 @@
 		    </div>
         </div>
     </div>
-    </div>
-
+    <!-- 弹出窗口 -->
+	<div id="dataForm" style="overflow:hidden;font-size:10px;" title="功能编辑">
+		<div id="load" style="display:none;position:absolute;top:50%;left:50%;margin:-40px 0 0 -50px;width:100px;height:100px;border:0px solid #008800;">
+			<img id="loadImg" src="${pageContext.request.contextPath}/img/load.gif"/>
+		</div>
+		<iframe id="winSrc" frameborder="0" width="100%" height="100%"></iframe>
+	</div>
     <script src="${pageContext.request.contextPath}/js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/manager_main.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
+
 </body>
 </html>
