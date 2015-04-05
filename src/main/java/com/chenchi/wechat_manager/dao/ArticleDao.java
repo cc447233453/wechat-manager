@@ -3,6 +3,7 @@ package com.chenchi.wechat_manager.dao;
 import java.util.List;
 
 import com.chenchi.wechat_manager.entity.Article;
+import com.chenchi.wechat_manager.entity.ArticleCategory;
 
 /**
  * @Description: 文章操作dao
@@ -39,4 +40,12 @@ public interface ArticleDao {
 	 * @see 需要参考的类或方法
 	 */
 	public void update(Article article);
+
+	/**
+	 * @Description 查询分类文章列表
+	 * @param category
+	 * @return
+	 * @see 需要参考的类或方法
+	 */
+	public List<Article> findListByCategory(ArticleCategory category);
 }

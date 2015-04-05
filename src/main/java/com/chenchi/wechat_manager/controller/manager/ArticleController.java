@@ -30,10 +30,12 @@ public class ArticleController {
 	public ArticleService articleService;
 	@Resource
 	private ArticleCategoryService articleCategoryService;
+
 	@RequestMapping("managerArticles")
 	public String managerArticles(HttpServletRequest request) {
 		return "manager/queryArticles";
 	}
+
 	/**
 	 * 查询文章列别
 	 * 
@@ -45,19 +47,26 @@ public class ArticleController {
 		List<Article> list = articleService.getList();
 		return list;
 	}
+
 	@RequestMapping("addArticlePre")
-	public String addArticlePre() {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public String addArticlePre(HttpServletRequest request) {
 		List<ArticleCategory> list = articleCategoryService.getList();
-		map.put("articleCategoryList", list);
+
+		request.setAttribute("list", list);
 		return "manager/articleAdd";
 	}
+
 	@RequestMapping("saveArticle")
 	@ResponseBody
-	public Map<String, Object> saveArticle(HttpServletRequest request, Article article) {
+	public Map<String, Object> saveArticle(HttpServletRequest request, Article article, String categoryid) {
 		Map<String, Object> map = new HashMap<String, Object>();
+
+		long cid = Long.parseLong(categoryid);
+
+		ArticleCategory category = articleCategoryService.findById(cid);
 		String author = (String) request.getSession().getAttribute("userName");
 		article.setAuthor(author);
+		article.setArticleCategory(category);
 		articleService.saveArticle(article);
 		map.put("errorMsg", false);
 		return map;

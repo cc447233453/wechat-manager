@@ -11,4 +11,12 @@ public interface ArticleCategoryService {
 	 * @see 需要参考的类或方法
 	 */
 	public List<ArticleCategory> getList();
+
+	/**
+	 * @Description 根据ID查找
+	 * @param cid
+	 * @return
+	 * @see 需要参考的类或方法
+	 */
+	public ArticleCategory findById(long cid);
 }
