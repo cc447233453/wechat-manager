@@ -24,27 +24,28 @@
 	
 	<body>
 	<%--添加文章 begin --%>
-		<form id="articleForm" method="post" novalidate>
+		<form id="dataDicForm" method="post" novalidate>
+		<div style="margin-left: 260px;margin-top: 50px;">
+	        <div class="fitem">
+	       	 	<label>语料类型：</label>
+	       	 	<select name="dataType">
+	       	 		<option value="1">唐诗三百首</option>
+	       	 		<option value="0">其他</option>
+	       	 	</select>
+	        </div>
 			<div class="fitem">
-	            <label>标题：</label>
-	            <input name="title" class="easyui-textbox">
+	            <label>语料key：</label>
+	            <input name="dataKey" class="easyui-textbox">
 	        </div>
 	        <div class="fitem">
-	       	 	<label>分类：</label>
-	        	<select name="categoryid">
-	        	<c:forEach items="${list }" var="item">
-	        		<option value="${item.id }">${item.category }</option>
-	        	</c:forEach>
-	        	</select>
+	       	 	<label>语料key：</label>
+	            <textarea  name="dataValue" rows="10" cols="40"></textarea>
 	        </div>
-	        <div class="fitem">
-	       	 	<label>内容：</label>
-	        	<textarea id="txt-content" name="content"></textarea>
 	        </div>
-	        
 	        <div id="dlg-buttons" style="padding:20px; text-align:center;">
 		       <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveArticle()" style="width:90px">保存</a>
 			</div>
+			
 		</form>
 	
 	<%--添加文章 end --%>
@@ -57,28 +58,10 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/uploader.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/simditor.min.js"></script>
 	<script>
-	//文本编辑器
-	(function() {
-	  $(function() {
-	    var editor, toolbar;
-	    toolbar = ['title', 'bold', 'italic', 'underline', 'strikethrough', 'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link', 'image', 'hr', '|', 'indent', 'outdent', '|', 'source'];
-	    return editor = new Simditor({
-	      textarea: $('#txt-content'),
-	      placeholder: '这里输入文字...',
-	      toolbar: toolbar,
-	      pasteImage: true,
-	      defaultImage: 'assets/images/image.png',
-	      upload: location.search === '?upload' ? {
-	        url: '/upload'
-	      } : false
-	    });
-	  });
 	
-	}).call(this);
-		
 	function saveArticle(){
-	    $('#articleForm').form('submit',{
-	        url: "${pageContext.request.contextPath}/manager/saveArticle",
+	    $('#dataDicForm').form('submit',{
+	        url: "${pageContext.request.contextPath}/manager/saveDataDic",
 	        onSubmit: function(){
 	            return $(this).form('validate');
 	        },
@@ -91,7 +74,8 @@
 	                });
 	            } else {
 	            	parent.closeWin();      // close the dialog
-	                $('#managerArticles').datagrid('reload');    // reload the user data
+// 	                $('#managerDataDic').datagrid('reload');    // reload the user data
+					
 	            }
 	        }
 	    });

@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 import com.chenchi.wechat_manager.dao.util.AutoIDEntity;
 /**
  * 词库实体类
@@ -29,6 +31,7 @@ public class DataDictionary extends AutoIDEntity {
 	public void setDataKey(String dataKey) {
 		this.dataKey = dataKey;
 	}
+	@Type(type = "text")
 	@Column(name = "DATA_VALUE")
 	public String getDataValue() {
 		return dataValue;

@@ -12,4 +12,23 @@ public interface DataDictionaryDao {
 	 * @return
 	 */
 	public List<DataDictionary> getByDataKey(String dataKey);
+	/**
+	 * 查询type=0
+	 * 
+	 * @return
+	 */
+	public List<DataDictionary> getDataDicByDataType(String type);
+	/**
+	 * 查询列表
+	 * 
+	 * @return
+	 */
+	public List<DataDictionary> getList();
+
+	/**
+	 * @Description 创建语料
+	 * @param article
+	 * @see 需要参考的类或方法
+	 */
+	public void add(DataDictionary dataDictionary);
 }

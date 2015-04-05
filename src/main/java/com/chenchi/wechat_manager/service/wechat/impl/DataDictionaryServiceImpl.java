@@ -20,8 +20,28 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 		if (list != null && list.size() > 0) {
 			return list.get(0).getDataValue();
 		} else {
-			return null;
+			List<DataDictionary> list1 = dataDictionaryDao.getDataDicByDataType("0");
+			if (list1 != null && list1.size() > 0) {
+				return list1.get(0).getDataValue();
+			} else {
+				return "你是一个好人";
+			}
 		}
 	}
-
+	/**
+	 * 查询语料列表
+	 * 
+	 * @return
+	 */
+	public List<DataDictionary> getList() {
+		return dataDictionaryDao.getList();
+	}
+	/**
+	 * 保存语料
+	 * 
+	 * @param dataDic
+	 */
+	public void saveDataDic(DataDictionary dataDic) {
+		dataDictionaryDao.add(dataDic);
+	}
 }

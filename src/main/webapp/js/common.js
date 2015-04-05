@@ -46,3 +46,19 @@ function closeWin() {
 		}
 	}
 }
+//刷新datagrid数据
+function reloadData(id) {
+	//刷新  datagrid
+	var topWin = window.top.document.getElementById("main").contentWindow;
+	if(id) {
+		var win = topWin.document.getElementById(id).contentWindow;
+		win.tab.datagrid('reload');//刷新datagrid
+		win.tab.datagrid('clearSelections');//清理选中
+	}else{
+		if(topWin.tab) {
+			topWin.tab.datagrid('reload');//刷新datagrid
+			topWin.tab.datagrid('clearSelections');//清理选中
+		}
+	}
+	
+}
