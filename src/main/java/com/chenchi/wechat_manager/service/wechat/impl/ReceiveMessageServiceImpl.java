@@ -7,20 +7,29 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.chenchi.wechat_manager.dao.UserMessageRecordDao;
 import com.chenchi.wechat_manager.entity.InputMessage;
 import com.chenchi.wechat_manager.entity.OutputMessage;
+import com.chenchi.wechat_manager.entity.UserMessageRecord;
 import com.chenchi.wechat_manager.enums.MsgType;
+import com.chenchi.wechat_manager.service.wechat.DataDictionaryService;
 import com.chenchi.wechat_manager.service.wechat.ReceiveMessageService;
 import com.chenchi.wechat_manager.util.SerializeXmlUtil;
 import com.thoughtworks.xstream.XStream;
 
 @Service
 public class ReceiveMessageServiceImpl implements ReceiveMessageService {
-
+	@Resource
+	private UserMessageRecordDao userMessageRecordDao;
+	@Resource
+	private DataDictionaryService dataDictionaryService;
 	public boolean checkSignature(String signature, String timestamp, String nonce) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		String token = "chenchi_weixin2015";
 		List<String> tmpArr = new ArrayList<String>();
@@ -68,14 +77,24 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 
 		// 将xml内容转换为InputMessage对象
 		InputMessage inputMsg = (InputMessage) xs.fromXML(document);
-		String servername = inputMsg.getToUserName();// 服务端
-		String custermname = inputMsg.getFromUserName();// 客户端
-		long createTime = inputMsg.getCreateTime();// 接收时间
-		Long returnTime = Calendar.getInstance().getTimeInMillis() / 1000;// 返回时间
+		String servername = inputMsg.getToUserName();// 鏈嶅姟绔�
+		String custermname = inputMsg.getFromUserName();// 瀹㈡埛绔�
+		long createTime = inputMsg.getCreateTime();// 鎺ユ敹鏃堕棿
+		Long returnTime = Calendar.getInstance().getTimeInMillis() / 1000;// 杩斿洖鏃堕棿
 		String msgType = inputMsg.getMsgType();// // 取得消息类型
 		System.out.println("******msgType************" + msgType);
+
 		if (msgType.equals(MsgType.text.toString())) {
-			System.out.println("content:" + inputMsg.getContent());
+			String content = inputMsg.getContent();
+			// 保存用户查询信息 begin
+			UserMessageRecord userMessageRecord = new UserMessageRecord();
+			userMessageRecord.setMessage(content);
+			userMessageRecord.setCreateTime(new Date());
+			userMessageRecordDao.add(userMessageRecord);
+			// 保存用户查询信息end
+			String dataValue = dataDictionaryService.getByDataKey(content);
+			System.out.println("dataKey:" + content);
+			System.out.println("dataValue:" + dataValue);
 			StringBuffer str = new StringBuffer();
 			str.append("<xml>");
 			str.append("<ToUserName><![CDATA[" + custermname + "]]></ToUserName>");
@@ -83,7 +102,7 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 			str.append("<CreateTime>" + returnTime + "</CreateTime>");
 			str.append("<MsgType><![CDATA[" + msgType + "]]></MsgType>");
 			str.append("<Content><![CDATA[");
-			str.append("您的信息已经记录，请耐心等待！");
+			str.append(dataValue);
 			str.append("]]></Content>");
 			str.append("</xml>");
 
@@ -92,4 +111,5 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 		}
 		return "";
 	}
+
 }

@@ -19,5 +19,7 @@
 		<mapping class="com.chenchi.wechat_manager.entity.AppointmentInfo"></mapping>
 		<mapping class="com.chenchi.wechat_manager.entity.Article"></mapping>
 		<mapping class="com.chenchi.wechat_manager.entity.ArticleCategory"></mapping>
+		<mapping class="com.chenchi.wechat_manager.entity.UserMessageRecord"></mapping>
+		<mapping class="com.chenchi.wechat_manager.entity.DataDictionary"></mapping>
 	</session-factory>
 </hibernate-configuration>

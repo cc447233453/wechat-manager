@@ -13,7 +13,7 @@ import org.apache.http.util.EntityUtils;
 
 public class HttpClientTest {
 	public static void main(String[] args) throws ClientProtocolException, IOException {
-		String str = "<xml><URL><![CDATA[http://localhost:8080/wm/wechat/api]]></URL><ToUserName><![CDATA[cc447133453@163.com]]></ToUserName><FromUserName><![CDATA[316849113]]></FromUserName><CreateTime>1999999</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[您好]]></Content><MsgId>111</MsgId></xml>";
+		String str = "<xml><URL><![CDATA[http://localhost:8080/wm/wechat/api]]></URL><ToUserName><![CDATA[cc447133453@163.com]]></ToUserName><FromUserName><![CDATA[316849113]]></FromUserName><CreateTime>1999999</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[呼呼]]></Content><MsgId>111</MsgId></xml>";
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost("http://localhost:8080/wm/wechat/api");
 		httpPost.setEntity(new StringEntity(str, "utf-8"));

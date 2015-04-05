@@ -21,7 +21,6 @@ public class ReceiveMessageController {
 
 	@Resource
 	public ReceiveMessageService receiveMessService;
-
 	@RequestMapping("api")
 	public @ResponseBody String api(HttpServletRequest request, HttpServletResponse response) {
 
@@ -56,7 +55,6 @@ public class ReceiveMessageController {
 
 				System.out.println("------------post-----------");
 				String str = receiveMessService.receiveMessage(xmlMsg.toString());
-				System.out.println("******" + str);
 				return str;
 
 			} catch (IOException e) {
