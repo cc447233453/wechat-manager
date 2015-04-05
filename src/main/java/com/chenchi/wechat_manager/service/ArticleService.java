@@ -11,8 +11,18 @@ public interface ArticleService {
 	 * @see 需要参考的类或方法
 	 */
 	public List<Article> getList();
+
+	/**
+	 * @Description 查询分类文章列表
+	 * @param cid
+	 * @return
+	 * @see 需要参考的类或方法
+	 */
+	public List<Article> getListByCid(long cid);
+
 	/**
 	 * 保存文章
+	 * 
 	 * @param article
 	 */
 	public void saveArticle(Article article);

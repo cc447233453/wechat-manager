@@ -1,11 +1,23 @@
 package com.chenchi.wechat_manager.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.chenchi.wechat_manager.entity.Article;
+import com.chenchi.wechat_manager.service.ArticleService;
 
 @Controller
 @RequestMapping("/user/")
 public class UserController {
+
+	@Resource
+	private ArticleService articleService;
 
 	/**
 	 * 微站首页
@@ -45,5 +57,20 @@ public class UserController {
 	@RequestMapping("timetable")
 	public String timetable() {
 		return "/user/timetable";
+	}
+
+	@RequestMapping("articlelist")
+	public String atticleList(HttpServletRequest request, String cid) throws Exception {
+
+		if (StringUtils.isEmpty(cid)) {
+			throw new Exception("文章分类id为空");
+		}
+
+		long cidLong = Long.parseLong(cid);
+
+		List<Article> articleList = articleService.getListByCid(cidLong);
+
+		request.setAttribute("list", articleList);
+		return "/user/articleList";
 	}
 }

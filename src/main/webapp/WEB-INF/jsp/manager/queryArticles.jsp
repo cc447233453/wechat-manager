@@ -30,7 +30,7 @@
 	    	 text:'新增',  
              iconCls:'icon-add',  
              handler : function() {
-                 openWin("新增", "${pageContext.request.contextPath}/manager/addArticlePre", 900, 500);
+                 openWin("新增", "${pageContext.request.contextPath}/manager/addArticlePre", 960, 500);
              }
 	     },'-',{ 
             	 text:'修改',  

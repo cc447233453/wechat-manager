@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.chenchi.wechat_manager.dao.ArticleDao;
 import com.chenchi.wechat_manager.entity.Article;
+import com.chenchi.wechat_manager.entity.ArticleCategory;
 
 /**
  * 
@@ -40,8 +41,8 @@ public class ArticleDaoImpl implements ArticleDao {
 
 	@Override
 	public void add(Article article) {
-	    Session session = sessionFactory.getCurrentSession();
-        session.save(article);
+		Session session = sessionFactory.getCurrentSession();
+		session.save(article);
 
 	}
 
@@ -49,6 +50,15 @@ public class ArticleDaoImpl implements ArticleDao {
 	public void update(Article article) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<Article> findListByCategory(ArticleCategory category) {
+		String hql = "from Article where category = ?";
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setParameter(0, category);
+		return query.list();
 	}
 
 }
