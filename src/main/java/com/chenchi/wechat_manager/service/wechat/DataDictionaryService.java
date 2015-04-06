@@ -11,7 +11,7 @@ public interface DataDictionaryService {
 	 * @param dataKey
 	 * @return
 	 */
-	public String getByDataKey(String dataKey);
+	public String getByDataKey(String dataKey, String type);
 
 	/**
 	 * 查询语料列表

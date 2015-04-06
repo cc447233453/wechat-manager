@@ -11,7 +11,7 @@ public interface DataDictionaryDao {
 	 * @param dataKey
 	 * @return
 	 */
-	public List<DataDictionary> getByDataKey(String dataKey);
+	public List<DataDictionary> getByDataKey(String dataKey, String type);
 	/**
 	 * 查询type=0
 	 * 
