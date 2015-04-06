@@ -73,4 +73,21 @@ public class UserController {
 		request.setAttribute("list", articleList);
 		return "/user/articleList";
 	}
+
+	@RequestMapping("article")
+	public String article(HttpServletRequest request, String id) throws Exception {
+
+		if (StringUtils.isEmpty(id)) {
+			throw new Exception("参数不全");
+		}
+
+		long idLong = Long.parseLong(id);
+
+		Article article = articleService.findById(idLong);
+
+		request.setAttribute("article", article);
+
+		return "/user/article";
+
+	}
 }
