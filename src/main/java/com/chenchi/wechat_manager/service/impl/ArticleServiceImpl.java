@@ -42,4 +42,9 @@ public class ArticleServiceImpl implements ArticleService {
 		ArticleCategory category = articleCategoryDao.findById(cid);
 		return articleDao.findListByCategory(category);
 	}
+
+	@Override
+	public Article findById(long id) {
+		return articleDao.findById(id);
+	}
 }

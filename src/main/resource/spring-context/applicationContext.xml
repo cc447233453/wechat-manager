@@ -47,6 +47,7 @@
 	<mvc:resources mapping="/js/**" location="/js/" />
 	<mvc:resources mapping="/img/**" location="/img/" />
 	<mvc:resources mapping="/easyui/**" location="/easyui/" />
+	<mvc:resources mapping="/frozenui/**" location="/frozenui/" />
 	
 	<bean 
 	    class="org.springframework.web.servlet.view.InternalResourceViewResolver"

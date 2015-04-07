@@ -58,7 +58,6 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/uploader.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/simditor.min.js"></script>
 	<script>
-	
 	function saveArticle(){
 	    $('#dataDicForm').form('submit',{
 	        url: "${pageContext.request.contextPath}/manager/saveDataDic",

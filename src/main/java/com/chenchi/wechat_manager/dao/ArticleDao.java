@@ -25,7 +25,7 @@ public interface ArticleDao {
 	 * @return
 	 * @see 需要参考的类或方法
 	 */
-	public Article findById();
+	public Article findById(long id);
 
 	/**
 	 * @Description 创建文章

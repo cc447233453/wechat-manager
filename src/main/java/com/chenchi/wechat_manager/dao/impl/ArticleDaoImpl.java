@@ -34,8 +34,17 @@ public class ArticleDaoImpl implements ArticleDao {
 	}
 
 	@Override
-	public Article findById() {
-		// TODO Auto-generated method stub
+	public Article findById(long id) {
+		String hql = "from Article where id = ?";
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setParameter(0, id);
+
+		List<Article> list = query.list();
+
+		if (list.size() > 0) {
+			return list.get(0);
+		}
 		return null;
 	}
 
@@ -54,10 +63,10 @@ public class ArticleDaoImpl implements ArticleDao {
 
 	@Override
 	public List<Article> findListByCategory(ArticleCategory category) {
-		String hql = "from Article where category = ?";
+		String hql = "from Article where articleCategory.id = ?";
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery(hql);
-		query.setParameter(0, category);
+		query.setParameter(0, category.getId());
 		return query.list();
 	}
 

@@ -26,4 +26,12 @@ public interface ArticleService {
 	 * @param article
 	 */
 	public void saveArticle(Article article);
+
+	/**
+	 * @Description 根据ID查找文章
+	 * @param id
+	 * @return
+	 * @see 需要参考的类或方法
+	 */
+	public Article findById(long id);
 }

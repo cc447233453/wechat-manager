@@ -21,6 +21,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 			return list.get(0).getDataValue();
 		} else {
 			List<DataDictionary> list1 = dataDictionaryDao.getDataDicByDataType(type);
+
 			if (list1 != null && list1.size() > 0) {
 				return list1.get(0).getDataValue();
 			} else {
