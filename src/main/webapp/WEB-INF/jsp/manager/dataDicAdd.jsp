@@ -29,8 +29,12 @@
 	        <div class="fitem">
 	       	 	<label>语料类型：</label>
 	       	 	<select name="dataType">
-	       	 		<option value="1">唐诗三百首</option>
-	       	 		<option value="0">其他</option>
+	       	 		<option value="1">小c乱弹</option>
+	       	 		<option value="2">小c百科</option>
+	       	 		<option value="3">小c常识</option>
+	       	 		<option value="4">小c旅行</option>
+	       	 		<option value="5">小c鸡汤</option>
+	       	 		<option value="6">小c缘分</option>
 	       	 	</select>
 	        </div>
 			<div class="fitem">
