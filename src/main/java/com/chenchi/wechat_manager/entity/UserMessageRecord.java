@@ -23,6 +23,10 @@ public class UserMessageRecord extends AutoIDEntity {
 	 * 创建时间
 	 */
 	private Date createTime;
+	/**
+	 * 客户编号
+	 */
+	private String customerName;
 
 	@Column(name = "MESSAGE", length = 200)
 	public String getMessage() {
@@ -37,6 +41,13 @@ public class UserMessageRecord extends AutoIDEntity {
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	@Column(name = "CUSTOMER_NAME")
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 
 }
