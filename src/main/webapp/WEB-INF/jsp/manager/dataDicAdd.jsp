@@ -25,11 +25,16 @@
 	<body>
 	<%--添加文章 begin --%>
 		<form id="dataDicForm" method="post" novalidate>
+		<div style="margin-left: 260px;margin-top: 50px;">
 	        <div class="fitem">
 	       	 	<label>语料类型：</label>
 	       	 	<select name="dataType">
-	       	 		<option value="1">唐诗三百首</option>
-	       	 		<option value="0">其他</option>
+	       	 		<option value="1">小c乱弹</option>
+	       	 		<option value="2">小c百科</option>
+	       	 		<option value="3">小c常识</option>
+	       	 		<option value="4">小c旅行</option>
+	       	 		<option value="5">小c鸡汤</option>
+	       	 		<option value="6">小c缘分</option>
 	       	 	</select>
 	        </div>
 			<div class="fitem">
@@ -38,11 +43,13 @@
 	        </div>
 	        <div class="fitem">
 	       	 	<label>语料key：</label>
-	            <textarea id="txt-content" name="dataValue" ></textarea>
+	            <textarea  name="dataValue" rows="10" cols="40"></textarea>
+	        </div>
 	        </div>
 	        <div id="dlg-buttons" style="padding:20px; text-align:center;">
 		       <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveArticle()" style="width:90px">保存</a>
 			</div>
+			
 		</form>
 	
 	<%--添加文章 end --%>
@@ -55,23 +62,6 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/uploader.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/simditor.min.js"></script>
 	<script>
-	(function() {
-		  $(function() {
-		    var editor, toolbar;
-		    toolbar = ['title', 'bold', 'italic', 'underline', 'strikethrough', 'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link', 'image', 'hr', '|', 'indent', 'outdent', '|', 'source'];
-		    return editor = new Simditor({
-		      textarea: $('#txt-content'),
-		      placeholder: '这里输入文字...',
-		      toolbar: toolbar,
-		      pasteImage: true,
-		      defaultImage: 'assets/images/image.png',
-		      upload: location.search === '?upload' ? {
-		        url: '/upload'
-		      } : false
-		    });
-		  });
-		
-		}).call(this);
 	function saveArticle(){
 	    $('#dataDicForm').form('submit',{
 	        url: "${pageContext.request.contextPath}/manager/saveDataDic",

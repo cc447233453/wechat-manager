@@ -14,13 +14,14 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 	@Resource
 	private DataDictionaryDao dataDictionaryDao;
 	@Override
-	public String getByDataKey(String dataKey) {
-		List<DataDictionary> list = dataDictionaryDao.getByDataKey(dataKey);
+	public String getByDataKey(String dataKey, String type) {
+		List<DataDictionary> list = dataDictionaryDao.getByDataKey(dataKey, type);
 		// 如果查询到对应的语料，则返回，否则去随机词库中查询
 		if (list != null && list.size() > 0) {
 			return list.get(0).getDataValue();
 		} else {
-			List<DataDictionary> list1 = dataDictionaryDao.getDataDicByDataType("0");
+			List<DataDictionary> list1 = dataDictionaryDao.getDataDicByDataType(type);
+
 			if (list1 != null && list1.size() > 0) {
 				return list1.get(0).getDataValue();
 			} else {

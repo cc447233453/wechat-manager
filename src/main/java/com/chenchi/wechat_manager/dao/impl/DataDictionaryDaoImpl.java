@@ -16,11 +16,12 @@ public class DataDictionaryDaoImpl implements DataDictionaryDao {
 	@Resource
 	private SessionFactory sessionFactory;
 	@Override
-	public List<DataDictionary> getByDataKey(String dataKey) {
-		String hql = "from DataDictionary where dataKey=?";
+	public List<DataDictionary> getByDataKey(String dataKey, String type) {
+		String hql = "from DataDictionary where dataKey=? and  dataType=?";
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery(hql);
 		query.setString(0, dataKey);
+		query.setString(1, type);
 		return query.list();
 	}
 	/**
@@ -29,7 +30,7 @@ public class DataDictionaryDaoImpl implements DataDictionaryDao {
 	 * @return
 	 */
 	public List<DataDictionary> getDataDicByDataType(String type) {
-		String hql = "from DataDictionary where dataType=? order by rand() limit 1 ";
+		String hql = "from DataDictionary where dataType=? order by rand() ";
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery(hql);
 		query.setString(0, type);
