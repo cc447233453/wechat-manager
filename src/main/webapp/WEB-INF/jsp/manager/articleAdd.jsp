@@ -91,7 +91,9 @@
 	                });
 	            } else {
 	            	parent.closeWin();      // close the dialog
-	                $('#managerArticles').datagrid('reload');    // reload the user data
+	            	//parent.reloadData();
+	            	console.log($('#managerArticles'));
+	               // $('#managerArticles').datagrid('reload');    // reload the user data
 	            }
 	        }
 	    });

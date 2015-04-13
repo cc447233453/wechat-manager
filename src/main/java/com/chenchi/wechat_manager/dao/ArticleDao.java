@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.chenchi.wechat_manager.entity.Article;
 import com.chenchi.wechat_manager.entity.ArticleCategory;
+import com.chenchi.wechat_manager.entity.TDPoetry;
 
 /**
  * @Description: 文章操作dao
@@ -26,6 +27,12 @@ public interface ArticleDao {
 	 * @see 需要参考的类或方法
 	 */
 	public Article findById(long id);
+	/**
+	 * @Description 根据id 查找
+	 * @return
+	 * @see 需要参考的类或方法
+	 */
+	public TDPoetry findPoetryById(long id);
 
 	/**
 	 * @Description 创建文章
@@ -33,6 +40,13 @@ public interface ArticleDao {
 	 * @see 需要参考的类或方法
 	 */
 	public void add(Article article);
+
+	/**
+	 * @Description 保存唐诗
+	 * @param article
+	 * @see 需要参考的类或方法
+	 */
+	public void add(TDPoetry poetry);
 
 	/**
 	 * @Description 更新文章

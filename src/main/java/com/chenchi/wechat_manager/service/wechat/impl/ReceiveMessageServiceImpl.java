@@ -14,15 +14,18 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.stereotype.Service;
 
 import com.chenchi.wechat_manager.dao.UserMessageRecordDao;
 import com.chenchi.wechat_manager.entity.InputMessage;
 import com.chenchi.wechat_manager.entity.OutputMessage;
+import com.chenchi.wechat_manager.entity.TDPoetry;
 import com.chenchi.wechat_manager.entity.UserMessageRecord;
 import com.chenchi.wechat_manager.enums.MsgType;
 import com.chenchi.wechat_manager.service.wechat.DataDictionaryService;
 import com.chenchi.wechat_manager.service.wechat.ReceiveMessageService;
+import com.chenchi.wechat_manager.service.wechat.TDPSolrService;
 import com.chenchi.wechat_manager.util.CnToStrokeCount;
 import com.chenchi.wechat_manager.util.JedisUtil;
 import com.chenchi.wechat_manager.util.SerializeXmlUtil;
@@ -34,6 +37,8 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 	private UserMessageRecordDao userMessageRecordDao;
 	@Resource
 	private DataDictionaryService dataDictionaryService;
+	@Resource
+	private TDPSolrService solrService;
 	public boolean checkSignature(String signature, String timestamp, String nonce) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		String token = "chenchi_weixin2015";
 		List<String> tmpArr = new ArrayList<String>();
@@ -81,10 +86,10 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 
 		// 将xml内容转换为InputMessage对象
 		InputMessage inputMsg = (InputMessage) xs.fromXML(document);
-		String servername = inputMsg.getToUserName();// 鏈嶅姟绔�
-		String custermname = inputMsg.getFromUserName();// 瀹㈡埛绔�
-		long createTime = inputMsg.getCreateTime();// 鎺ユ敹鏃堕棿
-		Long returnTime = Calendar.getInstance().getTimeInMillis() / 1000;// 杩斿洖鏃堕棿
+		String servername = inputMsg.getToUserName();//
+		String custermname = inputMsg.getFromUserName();//
+		long createTime = inputMsg.getCreateTime();//
+		Long returnTime = Calendar.getInstance().getTimeInMillis() / 1000;//
 		String msgType = inputMsg.getMsgType();// // 取得消息类型
 		System.out.println("******msgType************" + msgType);
 
@@ -106,7 +111,7 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 			if (mather.matches()) {
 				JedisUtil.setKeyValue(custermname, content, 3600);
 				if ("1".equals(content)) {
-					dataValue.append(dataDictionaryService.getByDataKey(content, content));
+					dataValue.append("众里寻他千百度。蓦然回首，那人却在，灯火阑珊处。\n 回复诗人名字或诗名或诗中关键词，搜索更多唐诗内容");
 				} else if ("6".equals(content)) {
 					dataValue.append("回复   **和** 测试缘分。例如:  习大大和彭妈妈");
 				} else if ("7".equals(content)) {
@@ -115,8 +120,21 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 					dataValue.append("精彩功能，敬请期待");
 				}
 			} else if (!"".equals(userContent) && userContent != null && !mather.matches()) {
+				if ("1".equals(userContent)) {
+					try {
+						List<TDPoetry> poetryList = solrService.getIndex(content);
+						if (poetryList != null && poetryList.size() > 0) {
+							poetryList.forEach(p -> {
+								dataValue.append(p.getpAuthor() + ":" + p.getpName() + "\n <a href=\"http://chenchi.xyz/wm/user/poetry?id=" + p.getSolrId() + "\" style=\"color:#0000ff\">查看详细</a>\n");
+							});
+						} else {
+							dataValue.append("呃...您的问题难倒我了，换个关键词试试呢！");
+						}
 
-				if ("6".equals(userContent)) {
+					} catch (SolrServerException e) {
+						e.printStackTrace();
+					}
+				} else if ("6".equals(userContent)) {
 					String firstName = content.split("和")[0];
 					String secondName = content.split("和")[1];
 					int firstNameCount = this.sixType(firstName);
@@ -126,8 +144,12 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 					} else {
 						content = (secondNameCount - firstNameCount) + "";
 					}
+				} else {
+					dataValue.append("精彩功能，敬请期待");
 				}
-				dataValue.append(dataDictionaryService.getByDataKey(content, userContent));
+				// dataValue.append(dataDictionaryService.getByDataKey(content,
+				// userContent));
+				// dataValue.append("呃，抱歉，小c才疏学浅，换个关键词试试呢！");
 			} else {
 				dataValue.append("呃...您的问题难倒我了。您可以输入以下数字来和小c聊天\n");
 				dataValue.append("[1]小c唐诗\n");
@@ -171,5 +193,9 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 			count += CnToStrokeCount.getStrokeCount(chars[i]);
 		}
 		return count;
+	}
+
+	public String queryTDPoetryFromSolr(String key) {
+		return "";
 	}
 }

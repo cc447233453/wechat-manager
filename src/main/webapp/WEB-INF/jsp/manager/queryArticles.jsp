@@ -8,7 +8,9 @@
 </table>
 
 <script>
-	var tab=$("#managerArticles").datagrid({
+var tab;
+$(function(){
+	tab=$("#managerArticles").datagrid({
 		url:"${pageContext.request.contextPath}/manager/queryArticles",//加载的URL
 		pagination:true,//显示分页
 		pageSize:5,//分页大小
@@ -56,7 +58,8 @@
          		parent.show(data.responseText);
          	}
          }
-	});    
+	}); 
+});
 </script>
 </div>
 

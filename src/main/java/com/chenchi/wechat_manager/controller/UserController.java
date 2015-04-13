@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.chenchi.wechat_manager.entity.Article;
+import com.chenchi.wechat_manager.entity.TDPoetry;
 import com.chenchi.wechat_manager.service.ArticleService;
 
 @Controller
@@ -88,6 +89,22 @@ public class UserController {
 		request.setAttribute("article", article);
 
 		return "/user/article";
+
+	}
+	@RequestMapping("poetry")
+	public String poetry(HttpServletRequest request, String id) throws Exception {
+
+		if (StringUtils.isEmpty(id)) {
+			throw new Exception("参数不全");
+		}
+
+		long idLong = Long.parseLong(id);
+
+		TDPoetry poetry = articleService.findPoetryById(idLong);
+
+		request.setAttribute("poetry", poetry);
+
+		return "/user/poetry";
 
 	}
 }

@@ -3,6 +3,7 @@ package com.chenchi.wechat_manager.service;
 import java.util.List;
 
 import com.chenchi.wechat_manager.entity.Article;
+import com.chenchi.wechat_manager.entity.TDPoetry;
 
 public interface ArticleService {
 	/**
@@ -26,6 +27,12 @@ public interface ArticleService {
 	 * @param article
 	 */
 	public void saveArticle(Article article);
+	/**
+	 * 保存唐诗
+	 * 
+	 * @param article
+	 */
+	public void saveArticle(TDPoetry poetry);
 
 	/**
 	 * @Description 根据ID查找文章
@@ -34,4 +41,11 @@ public interface ArticleService {
 	 * @see 需要参考的类或方法
 	 */
 	public Article findById(long id);
+	/**
+	 * @Description 根据ID查找唐诗
+	 * @param id
+	 * @return
+	 * @see 需要参考的类或方法
+	 */
+	public TDPoetry findPoetryById(long id);
 }

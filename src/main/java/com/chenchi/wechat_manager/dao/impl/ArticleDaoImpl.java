@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.chenchi.wechat_manager.dao.ArticleDao;
 import com.chenchi.wechat_manager.entity.Article;
 import com.chenchi.wechat_manager.entity.ArticleCategory;
+import com.chenchi.wechat_manager.entity.TDPoetry;
 
 /**
  * 
@@ -47,14 +48,29 @@ public class ArticleDaoImpl implements ArticleDao {
 		}
 		return null;
 	}
+	public TDPoetry findPoetryById(long id) {
+		String hql = "from TDPoetry where id = ?";
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setParameter(0, id);
 
+		List<TDPoetry> list = query.list();
+
+		if (list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
 	@Override
 	public void add(Article article) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(article);
 
 	}
-
+	public void add(TDPoetry poetry) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(poetry);
+	}
 	@Override
 	public void update(Article article) {
 		// TODO Auto-generated method stub

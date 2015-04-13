@@ -11,9 +11,10 @@ import com.chenchi.wechat_manager.dao.ArticleCategoryDao;
 import com.chenchi.wechat_manager.dao.ArticleDao;
 import com.chenchi.wechat_manager.entity.Article;
 import com.chenchi.wechat_manager.entity.ArticleCategory;
+import com.chenchi.wechat_manager.entity.TDPoetry;
 import com.chenchi.wechat_manager.service.ArticleService;
 
-@Service
+@Service("articleService")
 public class ArticleServiceImpl implements ArticleService {
 	@Resource
 	private ArticleDao articleDao;
@@ -36,7 +37,9 @@ public class ArticleServiceImpl implements ArticleService {
 		article.setUpdateTime(new Date());
 		articleDao.add(article);
 	}
-
+	public void saveArticle(TDPoetry poetry) {
+		articleDao.add(poetry);
+	}
 	@Override
 	public List<Article> getListByCid(long cid) {
 		ArticleCategory category = articleCategoryDao.findById(cid);
@@ -46,5 +49,9 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public Article findById(long id) {
 		return articleDao.findById(id);
+	}
+	@Override
+	public TDPoetry findPoetryById(long id) {
+		return articleDao.findPoetryById(id);
 	}
 }

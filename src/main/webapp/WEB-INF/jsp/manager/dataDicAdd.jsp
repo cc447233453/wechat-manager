@@ -77,6 +77,7 @@
 	                });
 	            } else {
 	            	parent.closeWin();      // close the dialog
+	            	parent.reloadData();
 // 	                $('#managerDataDic').datagrid('reload');    // reload the user data
 					
 	            }
