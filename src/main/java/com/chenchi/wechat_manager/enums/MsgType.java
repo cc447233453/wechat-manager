@@ -4,5 +4,9 @@ public enum MsgType {
 	/**
 	 * 文本
 	 */
-	text;
+	text,
+	/**
+	 * 声音
+	 */
+	voice;
 }

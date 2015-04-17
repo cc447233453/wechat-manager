@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-    <title>${article.title }</title>
+    <title>${poetry.pName}&nbsp;&nbsp;${poetry.pAuthor }</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frozenui/css/frozen.css">
     <style>
     .content{
@@ -28,18 +28,23 @@
 </head>
 <body>
     <div class="wrapper content">
-    <div class="content_box">
+    <div class="content_box" >
     	<h2>${poetry.pName }</h2>
     	<hr>
-    	<h2>${poetry.pAuthor }<br><br></h2>
+    	<h3>${poetry.pAuthor}<br><br></h3>
        
-        <h2>${poetry.pContent }<br><br></h2>
+        <h3>${poetry.pContent }<br/><br/></h3>
         
-        <h2>【注解】：<br>${poetry.note }<br><br></h2>
-        
-        <h2>【韵译】：<br> ${poetry.translation }<br><br></h2>
+        <h2>注解：</h2>
+        <hr>
+        <h3>${poetry.note }<br/><br/></h3>
+        <h2>韵译：</h2>
+        <hr>
+        <h3>${poetry.translation }<br/><br/></h3>
        
-        <h2>【评析】：<br> ${poetry.analysis }<br><br></h2>
+        <h2>评析：</h2>
+        <hr>
+        <h3> ${poetry.analysis }</h3>
         
     </div>
     </div>

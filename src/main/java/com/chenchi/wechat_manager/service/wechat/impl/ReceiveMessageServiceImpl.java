@@ -86,9 +86,9 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 
 		// 将xml内容转换为InputMessage对象
 		InputMessage inputMsg = (InputMessage) xs.fromXML(document);
-		String servername = inputMsg.getToUserName();//
-		String custermname = inputMsg.getFromUserName();//
-		long createTime = inputMsg.getCreateTime();//
+		String servername = inputMsg.getToUserName();// 开发者微信号
+		String custermname = inputMsg.getFromUserName();// 发送方帐号（一个OpenID）
+		long createTime = inputMsg.getCreateTime();// 消息创建时间 （整型）
 		Long returnTime = Calendar.getInstance().getTimeInMillis() / 1000;//
 		String msgType = inputMsg.getMsgType();// // 取得消息类型
 		System.out.println("******msgType************" + msgType);
@@ -176,6 +176,8 @@ public class ReceiveMessageServiceImpl implements ReceiveMessageService {
 
 			System.out.println(str.toString());
 			return str.toString();
+		} else if (msgType.equals(MsgType.voice.toString())) {
+
 		}
 		return "";
 	}

@@ -59,7 +59,7 @@ public class FileTest {
 						continue;
 					}
 					if (lineTxt.contains("作者：")) {
-						poetry.setpAuthor(lineTxt);
+						poetry.setpAuthor(lineTxt.substring(3, lineTxt.length()));
 						type = "content";
 						continue;
 					}
@@ -77,14 +77,29 @@ public class FileTest {
 					}
 					if (!"".equals(lineTxt.trim())) {
 						if ("note".equals(type)) {
-							note = note + "\n" + lineTxt;
+							if ("".equals(note)) {
+								note = lineTxt;
+							} else {
+								note = note + "<br/>" + lineTxt;
+							}
 						} else if ("explain".equals(type)) {
-							translation = translation + "\n" + lineTxt;
+							if ("".equals(translation)) {
+								translation = lineTxt;
+							} else {
+								translation = translation + "<br/>" + lineTxt;
+							}
 						} else if ("analysis".equals(type)) {
-							poetry.setAnalysis(lineTxt);
-							analysis = analysis + "\n" + lineTxt;
+							if ("".equals(analysis)) {
+								analysis = lineTxt;
+							} else {
+								analysis = analysis + "<br/>" + lineTxt;
+							}
 						} else if ("content".equals(type)) {
-							pContent = pContent + "\n" + lineTxt;
+							if ("".equals(pContent)) {
+								pContent = lineTxt;
+							} else {
+								pContent = pContent + "<br/>" + lineTxt;
+							}
 						}
 					}
 

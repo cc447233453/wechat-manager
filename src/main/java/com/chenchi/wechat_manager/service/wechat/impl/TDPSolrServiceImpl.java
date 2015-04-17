@@ -36,12 +36,12 @@ public class TDPSolrServiceImpl implements TDPSolrService {
 		server = new HttpSolrServer(solrUrl);
 		server.setRequestWriter(new BinaryRequestWriter());
 		SolrQuery query = new SolrQuery();
-		String queryParse = "pName:" + key + "or pAuthor:" + key + "or pContent:" + key;
+		String queryParse = "poetry:" + key;
 		query.setQuery(queryParse);
 		// query.setQuery("pAuthor:" + key);
 		// query.setQuery("pContent:" + key);
-		query.setStart(0);
-		query.setRows(10);
+		// query.setStart(0);
+		// query.setRows(10);
 		QueryResponse queryResponse = server.query(query);
 		Iterator<SolrDocument> iter = queryResponse.getResults().iterator();
 		System.out.println("******" + queryResponse.getResults().size());

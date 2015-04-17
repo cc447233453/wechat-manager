@@ -3,6 +3,7 @@ package com.chenchi.wechat_manager.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
@@ -88,6 +89,7 @@ public class TDPoetry extends AutoIDEntity {
 	public void setAnalysis(String analysis) {
 		this.analysis = analysis;
 	}
+	@Transient
 	public Integer getSolrId() {
 		return solrId;
 	}
